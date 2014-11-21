@@ -7,16 +7,16 @@ kramdown:
 
 # 作者信息
 author: 
-  name: 闫肃
-  email: suyan0830@gmail.com
-  link: http://yansu.org
+  name: 谭礼渊
+  email: undefined4me@gmail.com
+  link: http://tanliyuan.com
   weibo: http://weibo.com/yansu0711
-  github: http://github.com/suyan
+  github: http://github.com/tanliyuan 
 
 # 站点信息
-title: 闫肃的博客 
-description: 闫肃的博客
-url: http://yansu.org
+title: 谭礼渊的博客 
+description: 谭礼渊的博客
+url: http://tanliyuan.com
 rss_url: /pages/atom.xml
 
 # gavatar头像及Favicon
@@ -26,7 +26,7 @@ favicon: http://yansu-uploads.stor.sinaapp.com/imgs/favicon.ico
 # google analytics 设置
 ga:
   id: UA-54767140-1
-  url: yansu.org
+  url: tanliyuan.com
 
 # disqus 设置
 disqus:
