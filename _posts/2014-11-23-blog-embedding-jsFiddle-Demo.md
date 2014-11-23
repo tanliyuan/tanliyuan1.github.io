@@ -37,7 +37,7 @@ Demo右上角有个云状图标，就是jsFiddle的logo，面板上方有*Javasc
 - **skin**    demo区域使用的皮肤，默认：*light*  
 
 ##如何得到demo的URL
-![url地址]()
+  ![http://sandbox.runjs.cn/uploads/rs/404/h6qnek27/girl0.jpg](http://sandbox.runjs.cn/uploads/rs/404/h6qnek27/girl0.jpg)  
 访问[jsFiddle](http://jsfiddle.net),在*Share*->*Embed on your page*菜单可以找到当前页面显示的js,html,css默认的
 <iframe>代码,将其插入到自己的.html或.md页面中即可。这样你就可以在自己的博客中引用他人的js,或是自己的作为demo用了演示。
 
