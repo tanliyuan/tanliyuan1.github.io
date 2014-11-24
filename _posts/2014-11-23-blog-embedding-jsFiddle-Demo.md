@@ -1,16 +1,15 @@
 ---
 layout: post
-title: 利用jsFiddle为博客内嵌js Demo演示
-category： 技术
-tags: jsFiddle, javascript, demo
-description: 利用jsFiddle在博客中嵌入js demo，读者可以方便的在result，html,css,js选项卡自由切换以查看相应内容，
-也可以修改代码并实时看到改变后的结果
+title: 利用jsFiddle为博客内嵌js-Demo演示
+category: 技术
+tags: Python
+description: 利用jsFiddle在博客中嵌入js demo，读者可以方便的在result，html,css,js选项卡自由切换以查看相应内容，也可以修改代码并实时看到改变后的结果
 ---
 
 在写javascript及其框架相关的博客时，光贴代码不能让读者看到运行结果，虽然贴图能让读者清晰的看到结果，
 但是经常会出现有读者抱怨示例代码没法运行，这很有可能是在代码粘贴时格式上出了问题，亦或是截图和上传的代码不同步。
 
-#jsFiddle
+# jsFiddle
 如果你是一名前端博主，你希望通过**代码**+**演示**来透彻的讲解一些技巧，并且无缝嵌入你的博客，
 那么[jsFiddle](http://jsfiddle.net/)是一个很好的选择。
 
@@ -36,7 +35,7 @@ Demo右上角有个云状图标，就是jsFiddle的logo，面板上方有*Javasc
 当没有引用外部资源时，resources选项卡将不显示
 - **skin**    demo区域使用的皮肤，默认：*light*  
 
-##如何得到demo的URL
+## 如何得到demo的URL
   ![http://sandbox.runjs.cn/uploads/rs/404/h6qnek27/girl0.jpg](http://sandbox.runjs.cn/uploads/rs/404/h6qnek27/girl0.jpg)  
 访问[jsFiddle](http://jsfiddle.net),在*Share*->*Embed on your page*菜单可以找到当前页面显示的js,html,css默认的
 <iframe>代码,将其插入到自己的.html或.md页面中即可。这样你就可以在自己的博客中引用他人的js,或是自己的作为demo用了演示。

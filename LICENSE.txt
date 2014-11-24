@@ -20,3 +20,11 @@ HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 OTHER DEALINGS IN THE SOFTWARE.
+
+---
+layout: post
+title: 利用jsFiddle为博客内嵌js-Demo演示
+category：技术
+tags: jsFiddle
+description: 利用jsFiddle在博客中嵌入js demo，读者可以方便的在result，html,css,js选项卡自由切换以查看相应内容，也可以修改代码并实时看到改变后的结果
+---
