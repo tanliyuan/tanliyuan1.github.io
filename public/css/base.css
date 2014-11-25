@@ -6,6 +6,10 @@ body, html {
   overflow: hidden;
   background-color: #1f2c39;
 }
+
+p {
+    white-space:pre-wrap;
+}
 .row {height: 100%;}
 /* 导航栏 + 目录栏 */
 .aside {height: 100%;}
