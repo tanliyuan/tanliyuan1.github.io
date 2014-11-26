@@ -20,6 +20,7 @@ description: 结合使用github，github for windows，web前端神器webstorm�
 
 ### github for windows  无需命令，全UI界面操作，轻松实现代码同步
 
+![df](../public/img/javascript-prototype.png)
 
 
 ### webstorm  前端开发利器，自带分享项目到github功能
