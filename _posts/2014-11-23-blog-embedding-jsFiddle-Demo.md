@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 利用jsFiddle为博客内嵌js-Demo演示
+title: 利用JSFiddle为博客内嵌javascript-Demo演示
 category: 技术
 tags: Python
 description: 利用jsFiddle在博客中嵌入js demo，读者可以方便的在result，html,css,js选项卡自由切换以查看相应内容，也可以修改代码并实时看到改变后的结果
@@ -34,7 +34,7 @@ description: 利用jsFiddle在博客中嵌入js demo，读者可以方便的在r
 - **skin**    demo区域使用的皮肤，默认：*light*  
 
 ## 如何得到demo的URL
-  ![http://sandbox.runjs.cn/uploads/rs/404/h6qnek27/girl0.jpg](http://sandbox.runjs.cn/uploads/rs/404/h6qnek27/girl0.jpg)
+  ![jsfiddle-iframe.PNG](http://sandbox.runjs.cn/uploads/rs/404/h6qnek27/jsfiddle-iframe.PNG)
 
 &emsp;&emsp;访问[jsFiddle](http://jsfiddle.net),在*Share*->*Embed on your page*菜单可以找到当前页面显示的js,html,css默认的`<iframe>`代码,将其插入到自己的.html或.md页面中即可。这样你就可以在自己的博客中引用他人的js,或是自己的作为demo用了演示 。
 
