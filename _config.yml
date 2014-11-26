@@ -9,8 +9,8 @@ kramdown:
 author: 
   name: 谭礼渊
   email: undefined4me@gmail.com
-  link: http://tanliyuan.com
-  weibo: http://weibo.com/yansu0711
+  link: http://tanliyuan.github.io
+  weibo: 
   github: http://github.com/tanliyuan 
 
 # 站点信息
@@ -30,14 +30,14 @@ ga:
 
 # disqus 设置
 disqus:
-  shortname: suyan-zh
+  shortname: tanliyuan
 
 # 主题设置，自动激活某个标签
 active: 技术
 
 # 首页除了最新文章外显示分类
 cates: 
-  - Python
+  - Javascript
   - OpenStack
 
 # 中文本地化
