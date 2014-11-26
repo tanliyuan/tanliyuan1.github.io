@@ -12,6 +12,7 @@ description: 通过修改JSDuck模板文件，让生成的Extjs docs不再引用
 ![loadfontcss.png](http://sandbox.runjs.cn/uploads/rs/404/h6qnek27/loadfontcss.png)
 
 ![request-font](http://sandbox.runjs.cn/uploads/rs/404/h6qnek27/request-googleFont-.PNG)
+
 解决办法:
 这个是解决jsDuck生成的docs打开慢的解决办法。对于下载的Extjs包中的docs打开慢的问题可以找到对应引用css代码注释掉即可。
 打开`%Ruby_installed_path%\Ruby193\lib\ruby\gems\1.9.1\gems\jsduck-5.3.4\`,可以看到如下文件结构：
