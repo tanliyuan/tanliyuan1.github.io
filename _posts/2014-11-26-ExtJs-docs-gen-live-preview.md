@@ -6,9 +6,9 @@ tags: JSDuck,ExtJs docs,live preview
 description: 用JSDuck给自己的ExtJs项目增加ExtJs官网中docs一样的实时预览功能
 ---
 
-对于演示一些可视化组件，live preview是很有用的，代码是相对独立的，并能渲染这个组件到document body 中。
+　　对于演示一些可视化组件，live preview是很有用的，代码是相对独立的，并能渲染这个组件到document body 中。
 
-先来看一下ExtJs docs官网的代码实时预览效果：
+　　先来看一下ExtJs docs官网的代码实时预览效果：
 
 ![doc-live-preview.gif](http://sandbox.runjs.cn/uploads/rs/404/h6qnek27/doc-live-preview.gif)
 
@@ -16,7 +16,7 @@ description: 用JSDuck给自己的ExtJs项目增加ExtJs官网中docs一样的�
 
 - 要在docs中生成语法高亮的代码块，必须在“/**  */”中代码缩进4个空格，如果还想具有live preview的效果 ，那么得在代码块前面加上@example标签，同时该标签也要缩进4个空格。
   
-下面这段代码是`ext-4.2.1.883\src\window\Window.js`中的一段文档标签注解，经过JSDuck的处理就可以生成上面那副截图的文档格式。
+　　下面这段代码是`ext-4.2.1.883\src\window\Window.js`中的一段文档标签注解，经过JSDuck的处理就可以生成上面那副截图的文档格式。
 
 ```javascript
 /**
@@ -41,7 +41,7 @@ description: 用JSDuck给自己的ExtJs项目增加ExtJs官网中docs一样的�
  */
 ```
 
-上述操作后只是有live preview的界面出现，但是点击live preview的时候并不能预览。
+　　上述操作后只是有live preview的界面出现，但是点击live preview的时候并不能预览。
 
 - 要想让内联的example代码在文档框架中工作，你必须在JSDuck的输出目录中建立一个`extjs-build/`的目录，在运行JSDuck生成docs文档后，只需拷贝ExtJs SDK（也就是我们创建extjs应用时所要引用的目录和文件，如`extjs-4.2.1/resource`目录和`ext-all.js,ext-lang-zh_CN.js`文件）进extjs-build目录即可。我的输出目录为docs,就会有如下`docs/extjs-build/resource`目录和`docs/extjs-build/ext-all.js`等文件。
 若果输出目录中没有extjs-build目录时，点击live preview按钮会出现 `ReferenceError: Ext is not defined`。
