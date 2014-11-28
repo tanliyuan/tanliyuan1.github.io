@@ -3,7 +3,7 @@ layout: post
 title: 利用JSFiddle为博客内嵌javascript-Demo演示
 category: 技术
 tags: Python
-description: 利用jsFiddle在博客中嵌入js demo，读者可以方便的在result，html,css,js选项卡自由切换以查看相应内容，也可以修改代码并实时看到改变后的结果
+description: 利用JSFiddle在博客中嵌入JS demo，读者可以方便的在result，html,css,js选项卡自由切换以查看相应内容，也可以修改代码并实时看到改变后的结果
 ---
 
 &emsp;&emsp;在写javascript及其框架相关的博客时，光贴代码不能让读者看到运行结果，虽然贴图能让读者清晰的看到结果,但是经常会出现有读者抱怨示例代码没法运行，这很有可能是在代码粘贴时格式上出了问题，亦或是截图和上传的代码不同步。
