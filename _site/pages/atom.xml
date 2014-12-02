@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0">
+  <channel>
+    <title>谭礼渊的博客</title>
+    <link>http://tanliyuan.com</link>
+    <description>谭礼渊的博客</description>
+    
+      <item>
+        <title>jsDuck生成的docs文档加载慢的解决方法</title>
+        <link>http://tanliyuan.com/2014/11/26/jsDuck-docs-loading-slow.html</link>
+        <guid isPermaLink="true">http://tanliyuan.com/2014/11/26/jsDuck-docs-loading-slow.html</guid>
+        <pubDate>Wed, 26 Nov 2014 00:00:00 +0800</pubDate>
+        <description>&lt;p&gt;现象:&lt;br /&gt;
+无论是打开ExtJs Docs的官网，还是下载下来的本地docs,亦或是用jsDuck生成的docs，打开界面都要费半天的劲，打开开发者工具，可以看到在请求一个css文件时卡住了，费时21.00s,再细看请求头，可以发现request URL在访问Google字体，大陆没有Google服务器，所有这就是原因所在。  &lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://sandbox.runjs.cn/uploads/rs/404/h6qnek27/loadfontcss.png&quot; alt=&quot;loadfontcss.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://sandbox.runjs.cn/uploads/rs/404/h6qnek27/request-googleFont-.PNG&quot; alt=&quot;request-font&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;解决办法:&lt;br /&gt;
+这个是解决jsDuck生成的docs打开慢的解决办法。对于下载的Extjs包中的docs打开慢的问题可以找到对应引用css代码注释掉即可。&lt;br /&gt;
+打开&lt;code&gt;%Ruby_installed_path%\Ruby193\lib\ruby\gems\1.9.1\gems\jsduck-5.3.4\&lt;/code&gt;,可以看到如下文件结构：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://sandbox.runjs.cn/uploads/rs/404/h6qnek27/JSDuck-template.PNG&quot; alt=&quot;jsduck-template.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;将其中的template.html 、print-template.html、index-template.html  文件中对Google字体的引用注释或删除保存即可。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-javascript&quot;&gt;&amp;lt;script type=&quot;text/javascript&quot;&amp;gt;
+  	(function(){
+    		var protocol = (document.location.protocol === &quot;https:&quot;) ? &quot;https:&quot; : &quot;http:&quot;;
+    		document.write(&quot;&amp;lt;link href='&quot;+protocol+&quot;//fonts.googleapis.com/css?family=Exo' rel='stylesheet' type='text/css' /&amp;gt;&quot;);
+  	})();
+ &amp;lt;/script&amp;gt; 
+
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+      </item>
+    
+      <item>
+        <title>JSDuck实现ExtJs docs代码实时预览</title>
+        <link>http://tanliyuan.com/2014/11/26/ExtJs-docs-gen-live-preview.html</link>
+        <guid isPermaLink="true">http://tanliyuan.com/2014/11/26/ExtJs-docs-gen-live-preview.html</guid>
+        <pubDate>Wed, 26 Nov 2014 00:00:00 +0800</pubDate>
+        <description>&lt;p&gt;对于演示一些可视化组件，live preview是很有用的，代码是相对独立的，并能渲染这个组件到document body 中。&lt;/p&gt;
+
+&lt;p&gt;先来看一下ExtJs docs官网的代码实时预览效果：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://sandbox.runjs.cn/uploads/rs/404/h6qnek27/doc-live-preview.gif&quot; alt=&quot;doc-live-preview.gif&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;jsducklive-preview&quot;&gt;如何用JSDuck生成代码live preview的效果：&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;要在docs中生成语法高亮的代码块，必须在“/**  */”中代码缩进4个空格，如果还想具有live preview的效果 ，那么得在代码块前面加上@example标签，同时该标签也要缩进4个空格。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;下面这段代码是&lt;code&gt;ext-4.2.1.883\src\window\Window.js&lt;/code&gt;中的一段文档标签注解，经过JSDuck的处理就可以生成上面那副截图的文档格式。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-javascript&quot;&gt;/**
+ * 
+ * **As with all {@link Ext.container.Container Container}s, it is important to consider how you want the Window to size
+ * and arrange any child Components. Choose an appropriate {@link #layout} configuration which lays out child Components
+ * in the required manner.**
+ *
+ *     @example  
+ *     Ext.create('Ext.window.Window', {  
+ *         title: 'Hello',  
+ *         height: 200,  
+ *         width: 400,  
+ *         layout: 'fit',
+ *         items: {  // Let's put an empty grid in just to illustrate fit layout
+ *             xtype: 'grid',
+ *             border: false,
+ *             columns: [{header: 'World'}],                 // One header just for show. There's no data,
+ *             store: Ext.create('Ext.data.ArrayStore', {}) // A dummy empty data store
+ *         }
+ *     }).show();
+ */
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;上述操作后只是有live preview的界面出现，但是点击live preview的时候并不能预览。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;要想让内联的example代码在文档框架中工作，你必须在JSDuck的输出目录中建立一个&lt;code&gt;extjs-build/&lt;/code&gt;的目录，在运行JSDuck生成docs文档后，只需拷贝ExtJs SDK（也就是我们创建extjs应用时所要引用的目录和文件，如&lt;code&gt;extjs-4.2.1/resource&lt;/code&gt;目录和&lt;code&gt;ext-all.js,ext-lang-zh_CN.js&lt;/code&gt;文件）进extjs-build目录即可。我的输出目录为docs,就会有如下&lt;code&gt;docs/extjs-build/resource&lt;/code&gt;目录和&lt;code&gt;docs/extjs-build/ext-all.js&lt;/code&gt;等文件。&lt;br /&gt;
+若果输出目录中没有extjs-build目录时，点击live preview按钮会出现 &lt;code&gt;ReferenceError: Ext is not defined&lt;/code&gt;。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;需将文档部署在web 服务器（如tomcat等）下访问，live preview才能正常预览，否则控制台会出现如下错误，原因是浏览器禁止跨域访问，直接点击index.html文件时用的是file协议，而非http协议，从浏览器的地址栏可以看出。&lt;br /&gt;
+&lt;code&gt;Uncaught SecurityError: Blocked a frame with origin &quot;null&quot; from accessing a frame with origin &quot;null&quot;. Protocols, domains, and ports must match.&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</description>
+      </item>
+    
+      <item>
+        <title>github + github for windows + webstorm 完美实现无需任何git命令实现github与本地代码的版本控制</title>
+        <link>http://tanliyuan.com/2014/11/25/github-for-windows-webstorm.html</link>
+        <guid isPermaLink="true">http://tanliyuan.com/2014/11/25/github-for-windows-webstorm.html</guid>
+        <pubDate>Tue, 25 Nov 2014 00:00:00 +0800</pubDate>
+        <description>&lt;blockquote&gt;
+  &lt;p&gt;　　作为开源代码库以及版本控制系统，Github拥有140多万开发者用户。随着越来越多的应用程序转移到了云上，Github已经成为了管理软件开发以及发现已有代码的首选方法 ，是全球最大的开源社交编程及代码托管网站 。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;　　基于github巨大的影响力，越来越多的程序员在上面分享自己的工程，或是找到自己感兴趣的项目，加入其中贡献自己的智慧。但是在上面托管项目的过程中，很多人会遇到一些门槛，比如：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;github页面上编码不方便。&lt;/li&gt;
+  &lt;li&gt;本地代码时常改动，需要频繁的的修改，要让github上的内容与本地同步，需用一系列git命令来实现建仓库，commit，update等等，为了实现同步，学习成本太高。&lt;/li&gt;
+  &lt;li&gt;往往要经历繁琐的git安装，像我的老爷机现在已经禁不起折腾了，都不敢安装。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;githubgithub-for-windows-webstorm-&quot;&gt;github,github for windows, webstorm 让你更加专注内容编写&lt;/h2&gt;
+
+&lt;h3 id=&quot;github-&quot;&gt;github 项目代码分享，博客展示&lt;/h3&gt;
+
+&lt;h3 id=&quot;github-for-windows--ui&quot;&gt;github for windows  无需命令，全UI界面操作，轻松实现代码同步&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://sandbox.runjs.cn/uploads/rs/404/h6qnek27/webstorm-github1.PNG&quot; alt=&quot;webstorm-github1&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;webstorm--github&quot;&gt;webstorm  前端开发利器，自带分享项目到github功能&lt;/h3&gt;
+
+</description>
+      </item>
+    
+      <item>
+        <title>利用JSFiddle为博客内嵌javascript-Demo演示</title>
+        <link>http://tanliyuan.com/2014/11/23/blog-embedding-jsFiddle-Demo.html</link>
+        <guid isPermaLink="true">http://tanliyuan.com/2014/11/23/blog-embedding-jsFiddle-Demo.html</guid>
+        <pubDate>Sun, 23 Nov 2014 00:00:00 +0800</pubDate>
+        <description>&lt;p&gt;  在写javascript及其框架相关的博客时，光贴代码不能让读者看到运行结果，虽然贴图能让读者清晰的看到结果,但是经常会出现有读者抱怨示例代码没法运行，这很有可能是在代码粘贴时格式上出了问题，亦或是截图和上传的代码不同步。&lt;/p&gt;
+
+&lt;h1 id=&quot;jsfiddle&quot;&gt;jsFiddle&lt;/h1&gt;
+&lt;p&gt;  如果你是一名前端博主，你希望通过&lt;strong&gt;代码&lt;/strong&gt;+&lt;strong&gt;演示&lt;/strong&gt;来透彻的讲解一些技巧，并且无缝嵌入你的博客,那么&lt;a href=&quot;http://jsfiddle.net/&quot;&gt;jsFiddle&lt;/a&gt;是一个很好的选择。&lt;/p&gt;
+
+&lt;p&gt;先给大家看一个本文嵌入Extjs Demo 演示：&lt;/p&gt;
+
+&lt;iframe width=&quot;100%&quot; height=&quot;300&quot; src=&quot;http://jsfiddle.net/timvasil/2gVUh/1/embedded/result,js,html,css,resources&quot; allowfullscreen=&quot;allowfullscreen&quot; frameborder=&quot;0&quot;&gt;&lt;/iframe&gt;
+
+&lt;p&gt;  Demo右上角有个云状图标，就是jsFiddle的logo，面板上方有&lt;em&gt;Javascript&lt;/em&gt;，&lt;em&gt;Resources&lt;/em&gt;,&lt;em&gt;HTML&lt;/em&gt;,&lt;em&gt;CSS&lt;/em&gt;,&lt;em&gt;Result&lt;/em&gt; 5个选项卡，&lt;br /&gt;
+点击不同选项卡，可以查看相应内容。将demo嵌入当前文章很简单，代码如下：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;先给大家看一个本文嵌入Extjs Demo 演示：  
+&amp;lt;iframe width=&quot;100%&quot; height=&quot;300&quot; src=&quot;http://jsfiddle.net/timvasil/2gVUh/1/embedded/result,js,html,css,resources&quot; allowfullscreen=&quot;allowfullscreen&quot; frameborder=&quot;0&quot;&amp;gt;&amp;lt;/iframe&amp;gt;
+Demo右上角有个云状图标，就是jsFiddle的logo，
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;  从代码中可以看出，其实就是在文章页面html中插入&lt;code&gt;&amp;lt;iframe&amp;gt;&lt;/code&gt;标签，&lt;em&gt;width&lt;/em&gt;、&lt;em&gt;height&lt;/em&gt;、&lt;em&gt;allowfullscreen&lt;/em&gt;、&lt;em&gt;frameborder&lt;/em&gt;&lt;br /&gt;
+属性分别是demo演示区域的&lt;em&gt;宽度&lt;/em&gt;，&lt;em&gt;高度&lt;/em&gt;，&lt;em&gt;是否允许全屏显示demo&lt;/em&gt;，&lt;em&gt;demo区域边框像素值&lt;/em&gt;，以上属性对不同demo都通用，&lt;br /&gt;
+要引用不同demo关键在src，下面分析src值URL的语法。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;http://{url_of_the_fiddle}/embedded/[{tabs}/[{style}]]/
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;url_of_the_fiddle&lt;/strong&gt;   jsFiddle的完整地址&lt;a href=&quot;http://jsfiddle.net&quot;&gt; http://jsfiddle.net&lt;/a&gt;  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;tabs&lt;/strong&gt;    要显示的标签面板及其排列顺序，默认为&lt;em&gt;js&lt;/em&gt;，&lt;em&gt;resources&lt;/em&gt;，&lt;em&gt;html&lt;/em&gt;，&lt;em&gt;css&lt;/em&gt;，&lt;em&gt;result&lt;/em&gt;,  &lt;br /&gt;
+当没有引用外部资源时，resources选项卡将不显示&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;skin&lt;/strong&gt;    demo区域使用的皮肤，默认：&lt;em&gt;light&lt;/em&gt;  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;demourl&quot;&gt;如何得到demo的URL&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&quot;http://sandbox.runjs.cn/uploads/rs/404/h6qnek27/jsfiddle-iframe.PNG&quot; alt=&quot;jsfiddle-iframe.PNG&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;  访问&lt;a href=&quot;http://jsfiddle.net&quot;&gt;jsFiddle&lt;/a&gt;,在&lt;em&gt;Share&lt;/em&gt;-&amp;gt;&lt;em&gt;Embed on your page&lt;/em&gt;菜单可以找到当前页面显示的js,html,css默认的&lt;code&gt;&amp;lt;iframe&amp;gt;&lt;/code&gt;代码,将其插入到自己的.html或.md页面中即可。这样你就可以在自己的博客中引用他人的js,或是自己的作为demo用了演示 。&lt;/p&gt;
+
+</description>
+      </item>
+    
+      <item>
+        <title>交互式编程-IPython</title>
+        <link>http://tanliyuan.com/2013/05/06/interactive-coding-ipython.html</link>
+        <guid isPermaLink="true">http://tanliyuan.com/2013/05/06/interactive-coding-ipython.html</guid>
+        <pubDate>Mon, 06 May 2013 00:00:00 +0800</pubDate>
+        <description>&lt;h2 id=&quot;ipythonhttpipythonorg&quot;&gt;&lt;a href=&quot;http://ipython.org/&quot;&gt;IPython&lt;/a&gt;简介&lt;/h2&gt;
+
+&lt;p&gt;IPython最大的特性是它的交互式翻译器。这个系统允许我们以最快的速度测试自己的想法，而不是创建一个文件然后编译执行。&lt;/p&gt;
+
+&lt;p&gt;IPython的目标是创建一个交互式计算和探索式计算的全面环境。为了支持这个目标，IPython有两个重要组件：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;一个增强的交互式python shell&lt;/li&gt;
+  &lt;li&gt;一个交互式的并行计算架构&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;参考：&lt;a href=&quot;http://ipython.org/ipython-doc/stable/overview.html&quot;&gt;IPython Introduction&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;ipython&quot;&gt;安装IPython&lt;/h2&gt;
+
+&lt;p&gt;ubuntu下直接apt-get install ipython即可，其他可以参考&lt;a href=&quot;http://ipython.org/ipython-doc/stable/install/install.html&quot;&gt;install ipython&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;ipython-1&quot;&gt;使用IPython&lt;/h2&gt;
+
+&lt;h3 id=&quot;section&quot;&gt;自动补全&lt;/h3&gt;
+&lt;p&gt;使用&lt;code&gt;tab&lt;/code&gt;可以直接对已打出的对象或变量进行补全&lt;/p&gt;
+
+&lt;h3 id=&quot;section-1&quot;&gt;魔术关键字&lt;/h3&gt;
+&lt;p&gt;魔术关键字以&lt;code&gt;%&lt;/code&gt;开头，如果&lt;code&gt;automagic&lt;/code&gt;打开了，则不用输入&lt;code&gt;%&lt;/code&gt;,否则需要，使用&lt;code&gt;automagic&lt;/code&gt;可以切换状态&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code&gt;env&lt;/code&gt; 显示环境变量&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;ed&lt;/code&gt;或&lt;code&gt;edit&lt;/code&gt; 编辑一个文件并执行&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;ed -x filename&lt;/code&gt; 编辑文件不执行&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;edit 3:10&lt;/code&gt; 编辑3:10行的指令并执行&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;hist&lt;/code&gt; 显示历史纪录，可以用-n增加行号&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;hist 3:10&lt;/code&gt; 显示3-10行的历史纪录&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;bg function&lt;/code&gt; 把function函数放到后台执行&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;pwd&lt;/code&gt; 当前目录&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;pycat filename&lt;/code&gt; 语法高亮显示一个文件&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;macro name 1:10&lt;/code&gt; 把1:10行的代码设为name宏&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;save filename 1:10&lt;/code&gt; 把1:10行代码保存到文件中&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;time statement&lt;/code&gt; 计算一段代码执行时间&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;timeit statement&lt;/code&gt; 自动选择重复和循环次数计算一段代码执行时间&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;run filename&lt;/code&gt; 执行一个文件，如果希望防止执行的，需要增加&lt;code&gt;if __name__ == &quot;__main__&quot;:&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;autoindent&lt;/code&gt; 如果启用，粘贴的时候会自动缩进代码&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;reset&lt;/code&gt; 重置所有变量&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;bash&quot;&gt;Bash命令&lt;/h3&gt;
+&lt;p&gt;使用&lt;code&gt;!&lt;/code&gt;做前缀可以执行shell命令，还可以用&lt;code&gt;$&lt;/code&gt;来转换python变量，如下&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;for i in range(10):
+  s = &quot;dir%s&quot; % i
+  !mkdir $s
+
+for i in !ls:
+  print i
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;另外，如果普通的shell命令有&lt;code&gt;$&lt;/code&gt;的话，必须增加两个&lt;code&gt;$$&lt;/code&gt;，如果原来是&lt;code&gt;echo $PATH&lt;/code&gt;，需要写成&lt;code&gt;!echo $$PATH&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;section-2&quot;&gt;打印对象属性&lt;/h3&gt;
+&lt;p&gt;使用&lt;code&gt;dir&lt;/code&gt;可以将对象属性打印出来，如&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;import os
+dir(os)
+&lt;/code&gt;&lt;/pre&gt;
+
+</description>
+      </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,348 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+<title>JSDuck实现ExtJs docs代码实时预览 | 谭礼渊的博客</title>
+<meta name="author" content="谭礼渊">
+
+
+  <meta name="description " content="用JSDuck给自己的ExtJs项目增加ExtJs官网中docs一样的实时预览功能">
+
+<link rel="shortcut icon" href="http://yansu-uploads.stor.sinaapp.com/imgs/favicon.ico" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="/public/css/bootstrap.css">
+<link rel="stylesheet" href="/public/css/font-awesome.css">
+<link rel="stylesheet" href="/public/js/prettify/prettify.css">
+<link rel="stylesheet" href="/public/css/base.css">
+<link href="/pages/atom.xml" rel="alternate" title="谭礼渊的博客" type="application/atom+xml">
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12 aside visible-md visible-lg">
+  <div class="row">
+    <div class="col-md-3 col-xs-3 aside1">
+      <br>
+      <a class="pjaxlink" href="/"><img src="http://yansu-uploads.stor.sinaapp.com/imgs/gavatar.png" class="img-circle avatar"></a>
+      <br><br>
+      <ul class="nav nav-pills nav-stacked">
+        
+          <li><a href="#技术" data-toggle="tab">技术</a></li>
+        
+        <li><a href="#tags" data-toggle="tab">标签</a></li>
+        <li><a class="pjaxlink" href="/pages/archive.html">归档</a></li>
+        <li><a class="pjaxlink" href="/pages/about.html">关于</a></li>
+      </ul>
+      <div class="aside1_bottom">
+        <table class="table table-condensed">
+          <tr>
+            <td><a href="/pages/atom.xml" target="_blank"><i class="fa fa-rss fa-2x"></i></a></td>
+            <td><a href="mailto:undefined4me@gmail.com"><i class="fa fa-envelope-o fa-2x"></i></a></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="col-md-9 col-xs-9 aside2">
+      <div class="row">
+        <div class="tab-content">
+           
+            <div class="tab-pane" id="技术">
+              <div class="list-group">
+                <h2 class="center">技术</h2>
+                
+                  <a href="/2014/11/26/jsDuck-docs-loading-slow.html" class="list-group-item pjaxlink">jsDuck生成的docs文档加载慢的解决方法</a>
+                
+                  <a href="/2014/11/26/ExtJs-docs-gen-live-preview.html" class="list-group-item pjaxlink">JSDuck实现ExtJs docs代码实时预览</a>
+                
+                  <a href="/2014/11/25/github-for-windows-webstorm.html" class="list-group-item pjaxlink">github + github for windows + webstorm 完美实现无需任何git命令实现github与本地代码的版本控制</a>
+                
+                  <a href="/2014/11/23/blog-embedding-jsFiddle-Demo.html" class="list-group-item pjaxlink">利用JSFiddle为博客内嵌javascript-Demo演示</a>
+                
+                  <a href="/2013/05/06/interactive-coding-ipython.html" class="list-group-item pjaxlink">交互式编程-IPython</a>
+                
+              </div>
+            </div>
+          
+          <div class="tab-pane" id="tags">
+            <div class="panel-group" id="accordion">
+              <h2 class="center">标签</h2>
+               
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion" href="#Python">Python</a>
+                      <span class="badge pull-right">2</span>
+                    </h4>
+                  </div>
+                  <div id="Python" class="panel-collapse collapse">
+                    
+                      <a  href='/2014/11/23/blog-embedding-jsFiddle-Demo.html' class="list-group-item pjaxlink">
+                        利用JSFiddle为博客内嵌javascript-Demo演示
+                      </a>
+                    
+                      <a  href='/2013/05/06/interactive-coding-ipython.html' class="list-group-item pjaxlink">
+                        交互式编程-IPython
+                      </a>
+                    
+                  </div>
+                </div>
+               
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion" href="#github,github">github,github</a>
+                      <span class="badge pull-right">1</span>
+                    </h4>
+                  </div>
+                  <div id="github,github" class="panel-collapse collapse">
+                    
+                      <a  href='/2014/11/25/github-for-windows-webstorm.html' class="list-group-item pjaxlink">
+                        github + github for windows + webstorm 完美实现无需任何git命令实现github与本地代码的版本控制
+                      </a>
+                    
+                  </div>
+                </div>
+               
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion" href="#for">for</a>
+                      <span class="badge pull-right">1</span>
+                    </h4>
+                  </div>
+                  <div id="for" class="panel-collapse collapse">
+                    
+                      <a  href='/2014/11/25/github-for-windows-webstorm.html' class="list-group-item pjaxlink">
+                        github + github for windows + webstorm 完美实现无需任何git命令实现github与本地代码的版本控制
+                      </a>
+                    
+                  </div>
+                </div>
+               
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion" href="#windows,webstorm,版本控制">windows,webstorm,版本控制</a>
+                      <span class="badge pull-right">1</span>
+                    </h4>
+                  </div>
+                  <div id="windows,webstorm,版本控制" class="panel-collapse collapse">
+                    
+                      <a  href='/2014/11/25/github-for-windows-webstorm.html' class="list-group-item pjaxlink">
+                        github + github for windows + webstorm 完美实现无需任何git命令实现github与本地代码的版本控制
+                      </a>
+                    
+                  </div>
+                </div>
+               
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion" href="#JSDuck,ExtJs">JSDuck,ExtJs</a>
+                      <span class="badge pull-right">1</span>
+                    </h4>
+                  </div>
+                  <div id="JSDuck,ExtJs" class="panel-collapse collapse">
+                    
+                      <a  href='/2014/11/26/ExtJs-docs-gen-live-preview.html' class="list-group-item pjaxlink">
+                        JSDuck实现ExtJs docs代码实时预览
+                      </a>
+                    
+                  </div>
+                </div>
+               
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion" href="#docs,live">docs,live</a>
+                      <span class="badge pull-right">1</span>
+                    </h4>
+                  </div>
+                  <div id="docs,live" class="panel-collapse collapse">
+                    
+                      <a  href='/2014/11/26/ExtJs-docs-gen-live-preview.html' class="list-group-item pjaxlink">
+                        JSDuck实现ExtJs docs代码实时预览
+                      </a>
+                    
+                  </div>
+                </div>
+               
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion" href="#preview">preview</a>
+                      <span class="badge pull-right">1</span>
+                    </h4>
+                  </div>
+                  <div id="preview" class="panel-collapse collapse">
+                    
+                      <a  href='/2014/11/26/ExtJs-docs-gen-live-preview.html' class="list-group-item pjaxlink">
+                        JSDuck实现ExtJs docs代码实时预览
+                      </a>
+                    
+                  </div>
+                </div>
+               
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion" href="#jsDuck,javascript">jsDuck,javascript</a>
+                      <span class="badge pull-right">1</span>
+                    </h4>
+                  </div>
+                  <div id="jsDuck,javascript" class="panel-collapse collapse">
+                    
+                      <a  href='/2014/11/26/jsDuck-docs-loading-slow.html' class="list-group-item pjaxlink">
+                        jsDuck生成的docs文档加载慢的解决方法
+                      </a>
+                    
+                  </div>
+                </div>
+               
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion" href="#docs,extjs">docs,extjs</a>
+                      <span class="badge pull-right">1</span>
+                    </h4>
+                  </div>
+                  <div id="docs,extjs" class="panel-collapse collapse">
+                    
+                      <a  href='/2014/11/26/jsDuck-docs-loading-slow.html' class="list-group-item pjaxlink">
+                        jsDuck生成的docs文档加载慢的解决方法
+                      </a>
+                    
+                  </div>
+                </div>
+               
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion" href="#docs">docs</a>
+                      <span class="badge pull-right">1</span>
+                    </h4>
+                  </div>
+                  <div id="docs" class="panel-collapse collapse">
+                    
+                      <a  href='/2014/11/26/jsDuck-docs-loading-slow.html' class="list-group-item pjaxlink">
+                        jsDuck生成的docs文档加载慢的解决方法
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="col-md-8 col-lg-8 col-sm-12 col-xs-12 aside3">
+        <div id="container">
+          <div id="pjax">
+            <div class="row">
+  <div class="col-md-12 aside3-title">
+    <br>
+    <h2 id="#identifier">JSDuck实现ExtJs docs代码实时预览</h2>
+    2014年11月26日
+  </div>
+  <div class="col-md-12 aside3-content">
+    <!-- 目录 -->
+<div class="content">
+    <h3><a href="javascript:;" id="content_btn">[目录]</a></h3>
+    <div id="content_table" style="display:none;">
+        <div id="nav"></div>
+    </div>
+</div>
+
+    <hr>
+    <div id="content">
+      <p>对于演示一些可视化组件，live preview是很有用的，代码是相对独立的，并能渲染这个组件到document body 中。</p>
+
+<p>先来看一下ExtJs docs官网的代码实时预览效果：</p>
+
+<p><img src="http://sandbox.runjs.cn/uploads/rs/404/h6qnek27/doc-live-preview.gif" alt="doc-live-preview.gif" /></p>
+
+<h2 id="jsducklive-preview">如何用JSDuck生成代码live preview的效果：</h2>
+
+<ul>
+  <li>要在docs中生成语法高亮的代码块，必须在“/**  */”中代码缩进4个空格，如果还想具有live preview的效果 ，那么得在代码块前面加上@example标签，同时该标签也要缩进4个空格。</li>
+</ul>
+
+<p>下面这段代码是<code>ext-4.2.1.883\src\window\Window.js</code>中的一段文档标签注解，经过JSDuck的处理就可以生成上面那副截图的文档格式。</p>
+
+<pre><code class="language-javascript">/**
+ * 
+ * **As with all {@link Ext.container.Container Container}s, it is important to consider how you want the Window to size
+ * and arrange any child Components. Choose an appropriate {@link #layout} configuration which lays out child Components
+ * in the required manner.**
+ *
+ *     @example  
+ *     Ext.create('Ext.window.Window', {  
+ *         title: 'Hello',  
+ *         height: 200,  
+ *         width: 400,  
+ *         layout: 'fit',
+ *         items: {  // Let's put an empty grid in just to illustrate fit layout
+ *             xtype: 'grid',
+ *             border: false,
+ *             columns: [{header: 'World'}],                 // One header just for show. There's no data,
+ *             store: Ext.create('Ext.data.ArrayStore', {}) // A dummy empty data store
+ *         }
+ *     }).show();
+ */
+</code></pre>
+
+<p>上述操作后只是有live preview的界面出现，但是点击live preview的时候并不能预览。</p>
+
+<ul>
+  <li>
+    <p>要想让内联的example代码在文档框架中工作，你必须在JSDuck的输出目录中建立一个<code>extjs-build/</code>的目录，在运行JSDuck生成docs文档后，只需拷贝ExtJs SDK（也就是我们创建extjs应用时所要引用的目录和文件，如<code>extjs-4.2.1/resource</code>目录和<code>ext-all.js,ext-lang-zh_CN.js</code>文件）进extjs-build目录即可。我的输出目录为docs,就会有如下<code>docs/extjs-build/resource</code>目录和<code>docs/extjs-build/ext-all.js</code>等文件。<br />
+若果输出目录中没有extjs-build目录时，点击live preview按钮会出现 <code>ReferenceError: Ext is not defined</code>。</p>
+  </li>
+  <li>
+    <p>需将文档部署在web 服务器（如tomcat等）下访问，live preview才能正常预览，否则控制台会出现如下错误，原因是浏览器禁止跨域访问，直接点击index.html文件时用的是file协议，而非http协议，从浏览器的地址栏可以看出。<br />
+<code>Uncaught SecurityError: Blocked a frame with origin "null" from accessing a frame with origin "null". Protocols, domains, and ports must match.</code></p>
+  </li>
+</ul>
+
+    </div>
+    <hr>
+    <div id="disqus_thread">
+  <button type="button" name="suyan-zh" class="btn btn-default show-commend">显示评论</button>
+</div>
+
+  </div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="position:fixed;right:20px;top:10px;">
+  <button id="nav_btn" class="btn btn-primary">
+    <i class="fa fa-2x fa-navicon"></i>
+  </button>
+</div>
+<script type="text/javascript" src="/public/js/jquery.js"></script>
+<script type="text/javascript" src="/public/js/bootstrap.js"></script>
+<script src="/public/js/jquery.pjax.js"></script>
+<script src="/public/js/prettify/prettify.js"></script>
+<script src="/public/js/base.js"></script>
+<script>
+    $('a[href="#技术"]').tab('show');
+</script>
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-54767140-1', 'tanliyuan.com');
+  ga('send', 'pageview');
+</script>
+</body>
+</html>
