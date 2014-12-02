@@ -10,7 +10,7 @@ description: 用JSDuck给自己的ExtJs项目增加ExtJs官网中docs一样的�
 
 　　先来看一下ExtJs docs官网的代码实时预览效果：
 
-![doc-live-preview.gif](../../../public/img/doc-live-preview.gif)
+![doc-live-preview.gif](../../../public/img/jsDuck/doc-live-preview.gif)
 
 ## 如何用JSDuck生成代码live preview的效果：
 
