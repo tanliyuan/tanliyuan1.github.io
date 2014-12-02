@@ -18,5 +18,3 @@
   /2014/11/25/github-for-windows-webstorm.html
 
   /2014/11/23/blog-embedding-jsFiddle-Demo.html
-
-  /2013/05/06/interactive-coding-ipython.html

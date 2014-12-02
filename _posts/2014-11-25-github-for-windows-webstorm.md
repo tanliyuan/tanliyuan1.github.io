@@ -27,4 +27,4 @@ description: 结合使用github，github for windows，web前端神器webstorm�
 
 
 
-![webstorm-github1](webstorm-github4.PNG)
+![webstorm-github1](../../../public/img/webstorm-github4.PNG)

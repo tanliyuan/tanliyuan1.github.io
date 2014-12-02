@@ -58,8 +58,6 @@
                 
                   <a href="/2014/11/23/blog-embedding-jsFiddle-Demo.html" class="list-group-item pjaxlink">利用JSFiddle为博客内嵌javascript-Demo演示</a>
                 
-                  <a href="/2013/05/06/interactive-coding-ipython.html" class="list-group-item pjaxlink">交互式编程-IPython</a>
-                
               </div>
             </div>
           
@@ -71,17 +69,13 @@
                   <div class="panel-heading">
                     <h4 class="panel-title">
                       <a data-toggle="collapse" data-toggle="collapse" data-parent="#accordion" href="#Python">Python</a>
-                      <span class="badge pull-right">2</span>
+                      <span class="badge pull-right">1</span>
                     </h4>
                   </div>
                   <div id="Python" class="panel-collapse collapse">
                     
                       <a  href='/2014/11/23/blog-embedding-jsFiddle-Demo.html' class="list-group-item pjaxlink">
                         利用JSFiddle为博客内嵌javascript-Demo演示
-                      </a>
-                    
-                      <a  href='/2013/05/06/interactive-coding-ipython.html' class="list-group-item pjaxlink">
-                        交互式编程-IPython
                       </a>
                     
                   </div>
@@ -258,20 +252,20 @@
 
     <hr>
     <div id="content">
-      <p>现象:<br />
-无论是打开ExtJs Docs的官网，还是下载下来的本地docs,亦或是用jsDuck生成的docs，打开界面都要费半天的劲，打开开发者工具，可以看到在请求一个css文件时卡住了，费时21.00s,再细看请求头，可以发现request URL在访问Google字体，大陆没有Google服务器，所有这就是原因所在。  </p>
+      <p>####现象:<br />
+　　无论是打开ExtJs Docs的官网，还是下载下来的本地docs,亦或是用jsDuck生成的docs，打开界面都要费半天的劲，打开开发者工具，可以看到在请求一个css文件时卡住了，费时21.00s,再细看请求头，可以发现request URL在访问Google字体，大陆没有Google服务器，所有这就是原因所在。  </p>
 
 <p><img src="http://sandbox.runjs.cn/uploads/rs/404/h6qnek27/loadfontcss.png" alt="loadfontcss.png" /></p>
 
 <p><img src="http://sandbox.runjs.cn/uploads/rs/404/h6qnek27/request-googleFont-.PNG" alt="request-font" /></p>
 
-<p>解决办法:<br />
-这个是解决jsDuck生成的docs打开慢的解决办法。对于下载的Extjs包中的docs打开慢的问题可以找到对应引用css代码注释掉即可。<br />
-打开<code>%Ruby_installed_path%\Ruby193\lib\ruby\gems\1.9.1\gems\jsduck-5.3.4\</code>,可以看到如下文件结构：</p>
+<p>####解决办法:<br />
+　　这个是解决jsDuck生成的docs打开慢的解决办法。对于下载的Extjs包中的docs打开慢的问题可以找到对应引用css代码注释掉即可。<br />
+打开<code>%Ruby_installed_path%\Ruby193\lib\ruby\gems\1.9.1\gems\jsduck-5.3.4\template-min\</code>,可以看到如下文件结构：</p>
 
 <p><img src="http://sandbox.runjs.cn/uploads/rs/404/h6qnek27/JSDuck-template.PNG" alt="jsduck-template.png" /></p>
 
-<p>将其中的template.html 、print-template.html、index-template.html  文件中对Google字体的引用注释或删除保存即可。</p>
+<p>　　将其中的template.html 、print-template.html、index-template.html  文件中对Google字体的引用注释或删除保存即可。下面这段对Google字体引用的代码均在以上文件<code>body</code>中的<code>&lt;script&gt;</code>标签内</p>
 
 <pre><code class="language-javascript">&lt;script type="text/javascript"&gt;
   	(function(){
@@ -285,7 +279,7 @@
     </div>
     <hr>
     <div id="disqus_thread">
-  <button type="button" name="suyan-zh" class="btn btn-default show-commend">显示评论</button>
+  <button type="button" name="tanliyuan" class="btn btn-default show-commend">显示评论</button>
 </div>
 
   </div>
