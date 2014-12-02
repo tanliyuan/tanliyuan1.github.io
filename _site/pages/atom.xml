@@ -6,6 +6,15 @@
     <description>谭礼渊的博客</description>
     
       <item>
+        <title>Github Pages中引用图片等资源，无需外链接</title>
+        <link>http://tanliyuan.com/2014/12/02/use-github-making-image-resources.html</link>
+        <guid isPermaLink="true">http://tanliyuan.com/2014/12/02/use-github-making-image-resources.html</guid>
+        <pubDate>Tue, 02 Dec 2014 00:00:00 +0800</pubDate>
+        <description>
+</description>
+      </item>
+    
+      <item>
         <title>jsDuck生成的docs文档加载慢的解决方法</title>
         <link>http://tanliyuan.com/2014/11/26/jsDuck-docs-loading-slow.html</link>
         <guid isPermaLink="true">http://tanliyuan.com/2014/11/26/jsDuck-docs-loading-slow.html</guid>

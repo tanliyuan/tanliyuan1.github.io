@@ -16,7 +16,7 @@ author:
 # 站点信息
 title: 谭礼渊的博客 
 description: 谭礼渊的博客
-url: http://tanliyuan.com
+url: http://tanliyuan.github.io
 rss_url: /pages/atom.xml
 
 # gavatar头像及Favicon
@@ -25,8 +25,8 @@ favicon: http://yansu-uploads.stor.sinaapp.com/imgs/favicon.ico
 
 # google analytics 设置
 ga:
-  id: UA-54767140-1
-  url: tanliyuan.com
+  id: UA-57264441-1
+  url: auto
 
 # disqus 设置
 disqus:
