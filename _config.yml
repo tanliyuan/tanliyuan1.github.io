@@ -1,7 +1,11 @@
+#固定链接格式
 permalink: /:year/:month/:day/:title.html
 paginate: 10
 markdown: kramdown
-
+#产生相关帖子的索引
+lsi: true
+#允许Pygments处理代码语法高亮
+pygments: true
 kramdown:
   input: GFM
 
