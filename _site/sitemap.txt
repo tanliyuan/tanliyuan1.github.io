@@ -11,6 +11,8 @@
 
 
 
+  /2014/12/03/Jackson-capital-letter.html
+
   /2014/12/02/use-github-making-image-resources.html
 
   /2014/11/26/jsDuck-docs-loading-slow.html

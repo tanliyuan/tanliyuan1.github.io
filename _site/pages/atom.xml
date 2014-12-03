@@ -6,6 +6,88 @@
     <description>谭礼渊的博客</description>
     
       <item>
+        <title>Jackson转换Java对象中首字母大写的成员变量成json字符串时出现重复</title>
+        <link>http://tanliyuan.github.io/2014/12/03/Jackson-capital-letter.html</link>
+        <guid isPermaLink="true">http://tanliyuan.github.io/2014/12/03/Jackson-capital-letter.html</guid>
+        <pubDate>Wed, 03 Dec 2014 00:00:00 +0800</pubDate>
+        <description>&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;
+    static class test {    
+    	String one;    	
+    	String two;    	
+    	@JsonProperty(&quot;Three&quot;)
+        public	String Three;
+        public String FOur;
+    	public String FOIuErParties; 
+    	   	
+		public String getThree() {
+			return Three;
+		}
+		
+		public void setThree(String three) {
+			Three = three;
+		}
+		
+		public String getFOIuErParties() {
+			return FOIuErParties;
+		}
+		
+		public void setFOIuErParties(String fOIuErParties) {
+			FOIuErParties = fOIuErParties;
+		}
+
+		public String getOne() {
+			return one;
+		}
+
+		public void setOne(String one) {
+			this.one = one;
+		}
+
+		public String getTwo() {
+			return two;
+		}
+
+		public void setTwo(String two) {
+			this.two = two;
+		}
+
+        /*		
+        public String getThree() {
+			return Three;
+		}
+
+		public void setThree(String three) {
+			Three = three;
+		}
+        */
+		test(String one,String two, String Three) {
+    		this.one = one;
+    		this.two = two;
+    		this.Three = Three;
+    	}
+    }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;　　可以使用&lt;code&gt;PropertyNamingStrategy.LowerCaseWithUnderscoresStrategy&lt;/code&gt;类来定义Java对象成员变量名转换成json字段名的转换规则。&lt;br /&gt;
+使用起来很简单，代码如下：&lt;/p&gt;
+
+&lt;pre&gt;
+
+    ObjectMapper mapper = new ObjectMapper();
+    	mapper.setPropertyNamingStrategy(new PropertyNamingStrategy.LowerCaseWithUnderscoresStrategy());
+		try {
+			json = mapper.writeValueAsString(formDataTpls);
+			//增加total，success,msg,code字段
+			
+		} catch(JsonProcessingException e) {
+			e.printStackTrace();
+		}
+
+&lt;/pre&gt;
+</description>
+      </item>
+    
+      <item>
         <title>Github Pages中引用图片等资源，无需外链接</title>
         <link>http://tanliyuan.github.io/2014/12/02/use-github-making-image-resources.html</link>
         <guid isPermaLink="true">http://tanliyuan.github.io/2014/12/02/use-github-making-image-resources.html</guid>
@@ -30,7 +112,7 @@
 &lt;p&gt;　　这个是解决jsDuck生成的docs打开慢的解决办法。对于下载的Extjs包中的docs打开慢的问题可以找到对应引用css代码注释掉即可。&lt;br /&gt;
 打开&lt;code&gt;%Ruby_installed_path%\Ruby193\lib\ruby\gems\1.9.1\gems\jsduck-5.3.4\template-min\&lt;/code&gt;,可以看到如下文件结构：&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;../../../public/img/JSDuck-docs-loading-slow/jsduck-template.PNG&quot; alt=&quot;jsduck-template.png&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;../../../public/img/JSDuck-docs-loading-slow/jsduck-template.png&quot; alt=&quot;jsduck-template.png&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;　　将其中的template.html 、print-template.html、index-template.html  文件中对Google字体的引用注释或删除保存即可。下面这段对Google字体引用的代码均在以上文件&lt;code&gt;body&lt;/code&gt;中的&lt;code&gt;&amp;lt;script&amp;gt;&lt;/code&gt;标签内&lt;/p&gt;
 
