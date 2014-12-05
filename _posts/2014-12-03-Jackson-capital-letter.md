@@ -7,6 +7,28 @@ description: Jackson可以将Java对象转换成json字符串，然后用于前�
 ---
 
 ```java
+    class Person {
+        String name;
+        int age;
+    }
+```
+
+会报异常，因为没有getter,setter方法，之后分别测试有无@JsonProperty("Three")的情况
+
+```java
+    class Person {
+        String name;
+        String FirstName;
+        public firstName;
+        String LastName;
+        public lastName;
+        public IDCard;
+    }
+```
+
+有public声明的成员变量，没有getter，setter方法也不会报异常
+
+```java
 
     static class test {    
     	String one;    	
@@ -80,4 +102,42 @@ description: Jackson可以将Java对象转换成json字符串，然后用于前�
 			e.printStackTrace();
 		}
 
+
+    ObjectMapper mapper = new ObjectMapper();
+        	//mapper.setPropertyNamingStrategy(new PropertyNamingStrategy.LowerCaseWithUnderscoresStrategy());
+        	mapper.setVisibility(PropertyAccessor.GETTER, JsonAutoDetect.Visibility.NONE); // but only public getters
+        	//mapper.setVisibility(JsonMethod.FIELD, Visibility.ANY);  JsonMethod枚举值已经废弃，改用PropertyAccessor
+        	//mapper.setVisibilityChecker(mapper.getVisibilityChecker().with(JsonAutoDetect.Visibility.NONE));
+    		try {
+    			json = mapper.writeValueAsString(formDataTpls);
+    			//增加total，success,msg,code字段
+    			
+    		} catch(JsonProcessingException e) {
+    			e.printStackTrace();
+    		}
+        	return json;
 </pre>
+
+ User user = new User();
+ //...set user data
+ 
+ ObjectMapper mapper = new ObjectMapper();
+ System.out.println(mapper.writeValueAsString(user));
+
+## output
+ {"age":29,"messages":["msg 1","msg 2","msg 3"],"name":"mkyong"}
+ 
+ ObjectMapper mapper = new ObjectMapper();
+   System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(user));
+   
+## Output
+   
+   {
+     "age" : 29,
+     "messages" : [ "msg 1", "msg 2", "msg 3" ],
+     "name" : "mkyong"
+   }
+   
+   	//mapper.setPropertyNamingStrategy(new PropertyNamingStrategy.LowerCaseWithUnderscoresStrategy());
+   	
+   	下划线格式命名
