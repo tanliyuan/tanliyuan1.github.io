@@ -6,6 +6,13 @@ tags: Jackson,json
 description: Jackson可以将Java对象转换成json字符串，然后用于前后台数据交互，在使用过程中发现当Java成员变量首字母是大写时，例如Name="me",json中会出现name和Name两个字段，造成数据冗余
 ---
 
+Jackson是Java语言处理数据的一个工具集，包括一流的JSON解析功能，另外还有模块支持`Avro`,`CBOR`,`CSV`,`Smile`,`XML`或者`YAML`格式数据的处理,所支持的数据格式还在不断增加。Jackson 2.x版本官方主页[https://github.com/FasterXML/jackson](https://github.com/FasterXML/jackson)。
+目前比较流行的json解析工具类库有Jackson,JSON-lib,Gson,在性能方面[Jackson](https://github.com/FasterXML/jackson)>[Gson](http://code.google.com/p/google-gson/)>[Json-lib](http://json-lib.sourceforge.net/).
+测试结果参考：
+
+- [两款JSON类库Jackson与JSON-lib的性能对比(新增第三款测试)](http://wangym.iteye.com/blog/738933)
+- [java 三大json解析性能对比(json-lib，gson，jackson)](http://blog.chinaunix.net/uid-26209648-id-3889935.html)
+
 ```java
     class Person {
         String name;
