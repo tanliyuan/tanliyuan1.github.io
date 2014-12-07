@@ -182,7 +182,9 @@ mapper.writerWithType(new TypeReference<List
 ```
 　　现在就能输出期待的json:
 
+<pre>
 ```
 [{"@class":"com.studytrails.json.jackson.Lion","name":"Samba"},
 {"@class":"com.studytrails.json.jackson.Elephant","name":"Manny"}]
 ```
+</pre>
