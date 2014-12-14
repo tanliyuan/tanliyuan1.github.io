@@ -2,7 +2,7 @@
 layout: post
 title: JSDuck实现ExtJs docs代码实时预览
 category: 技术
-tags: JSDuck,ExtJs docs,live preview
+tags: JSDuck ExtJs-docs-live-preview
 description: 用JSDuck给自己的ExtJs项目增加ExtJs官网中docs一样的实时预览功能
 ---
 

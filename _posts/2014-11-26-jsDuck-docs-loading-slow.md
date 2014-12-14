@@ -2,7 +2,7 @@
 layout: post
 title: jsDuck生成的docs文档加载慢的解决方法
 category: 技术
-tags: jsDuck,javascript docs,extjs docs
+tags: JSDuck extjs-docs
 description: 通过修改JSDuck模板文件，让生成的Extjs docs不再引用Google Font，加快页面加载速度
 ---
 

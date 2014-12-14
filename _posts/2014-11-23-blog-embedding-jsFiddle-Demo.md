@@ -2,7 +2,7 @@
 layout: post
 title: 利用JSFiddle为博客内嵌javascript-Demo演示
 category: 技术
-tags: Python
+tags: JSFiddle javascript-Demo
 description: 利用JSFiddle在博客中嵌入JS demo，读者可以方便的在result，html,css,js选项卡自由切换以查看相应内容，也可以修改代码并实时看到改变后的结果
 ---
 

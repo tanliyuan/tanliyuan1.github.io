@@ -2,7 +2,7 @@
 layout: post
 title: Jackson转换Java对象中首字母大写的成员变量成json字符串时出现重复
 category: 技术
-tags: Jackson,json
+tags: Jackson Java-Json
 description: Jackson可以将Java对象转换成json字符串，然后用于前后台数据交互，在使用过程中发现当Java成员变量首字母是大写时，例如Name="me",json中会出现name和Name两个字段，造成数据冗余
 ---
 

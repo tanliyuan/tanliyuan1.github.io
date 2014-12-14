@@ -2,7 +2,7 @@
 layout: post
 title: Jackson Mix-In Annotations使用示例
 category: 技术
-tags: Jackson json Java
+tags: Jackson Java-Json
 description: 利用Jackson Mix-In注解可以将注解与POJO类声明分离，适用于序列化无法在源码中加Annotation的第三方类库对象。
 ---
 
@@ -10,7 +10,7 @@ description: 利用Jackson Mix-In注解可以将注解与POJO类声明分离，�
 
 下面为大家演示Mix-In的用法：
 
-##Example：
+## Example：
 
 Bird.java
 
@@ -143,8 +143,8 @@ class FilterView {
 
 在`Bird`中我们定义了三个private的成员变量，但是序列化时只输出了`sound`属性,在Bird类中也没有加任何的Jackson Annotation。这常用于服务器端向前端传某个对象的概略信息，比如一个对象有好几十个属性，而且很多属性的值是一个文本类型且很长，但是前端只要其中的几个属性，比如ID，topic等等。那么把整个对象序列化成json，就增大的数据传输量。解决方案有两个。
 
-- 方案一——在POJOs中添加`JsonIgnore`忽视掉不需要的属性。
+- 方案一 —— 在POJOs中添加`JsonIgnore`忽视掉不需要的属性。
 这里有两个问题：一、好几十个属性中我们只要四五个，那么我们得在其余几十个属性上加`JsonIgnore`，工作量太大。二、序列化对象是第三方类库的实例，我们无法在源码中添加Annotation，或者我们想保持代码简洁性，将Jackson Annotation与类声明分离。
 针对第一个问题我们可以使用`JsonView`注解，它的作用与`JsonIgnore`相反，被`JsonView`注解注解的将被序列化，那么只需在少数几个需要的属性上添加。第二个问题其他Annotation就解决不了了。
 
-- 方案二
+- 方案二 —— 就是采用前面的 

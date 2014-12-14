@@ -2,7 +2,7 @@
 layout: post
 title: Jackson 序列化Java List 对象
 category: 技术
-tags: Jackson json Java
+tags: Jackson Java-Json
 description: Jackson 序列化Java List 对象是保留List中对象的类型信息，以便正确的反序列化。
 ---
 
@@ -182,9 +182,8 @@ mapper.writerWithType(new TypeReference<List
 ```
 　　现在就能输出期待的json:
 
-<pre>
+
 ```
 [{"@class":"com.studytrails.json.jackson.Lion","name":"Samba"},
 {"@class":"com.studytrails.json.jackson.Elephant","name":"Manny"}]
 ```
-</pre>
