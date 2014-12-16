@@ -129,3 +129,243 @@ mapper.configure(SerializationFeature.INDENT_OUTPUT, true);
 
 >   注意这个不应该用于实际发布的时候，仅仅用于开发和测试阶段，因为为了达到换行和缩进的效果，会在每行的头尾部增加`\r\n`、`\t`等字符，这会显著增加数据传输量。
 
+现在我们再在唱片集中添加一个作曲家和他们所使用的乐曲之间的Map。
+
+```java
+private Map<String,String> musicians = new HashMap<String, String>();
+public Map<String, String> getMusicians() {
+        return Collections.unmodifiableMap(musicians);
+}
+public void addMusician(String key, String value){
+        musicians.put(key, value);
+}
+```
+
+在`main`方法中添加：
+
+```java
+album.addMusician("Miles Davis", "Trumpet, Band leader");
+album.addMusician("Julian Adderley", "Alto Saxophone");
+album.addMusician("Paul Chambers", "double bass");
+```
+
+json结构如下：
+
+```
+{
+  "title" : "Kind Of Blue",
+  "links" : [ "link1", "link2" ],
+  "songs" : [ "So What", "Flamenco Sketches", "Freddie Freeloader" ],
+  "artist" : {
+    "name" : "Miles Davis",
+    "birthDate" : -1376027600000
+  },
+  "musicians" : {
+    "Julian Adderley" : "Alto Saxophone",
+    "Paul Chambers" : "double bass",
+    "Miles Davis" : "Trumpet, Band leader"
+  }
+}
+```
+
+我们还可以给这个转换过程添加更多的特性，先告诉mapper按照Map中keys的自然顺序排序：
+
+```java
+mapper.configure(SerializationFeature.ORDER_MAP_ENTRIES_BY_KEYS, true);
+```
+
+这里有一个问题，细心的读者可能已经发现`birthDate`字段已经被格式化成新纪元时间，这不是我们想要到，因此还应当将时间格式化为人类更可读的形式。
+
+```java
+SimpleDateFormat outputFormat = new SimpleDateFormat("dd MMM yyyy");
+mapper.setDateFormat(outputFormat);
+```
+
+默认情况下，Jackson会使用Java成员属性名作为Json字段名。你可以像本教程一样用Jackson Annotations来改变默认的命名策略。然而有时你可能无法直接访问Java Bean对象，比如那是一个第三方库，你无法在其类的源码上添加Annotations,又或者你不想Java bean和Jackson Annotation混在一起。对于这些情况，Jackson也提供了一种优雅的方法来改变默认的字段命名策略。可以在`mapper`上使用`setPropertyNamingStrategy`方法来为`field`设置命名策略。如果在`bean`中有`public`域，可以重写`nameForField`方法;如果`bean`中有`getter`方法，那么可以重写`nameForGetter`方法。在下面的example中，我们将albem的`title`域改为json的`Album-Title`字段，artist的`name`域改为json的`Artist-Name`。实现这些，只需在`main`中做如下改变：
+
+```java
+
+mapper.setPropertyNamingStrategy(new PropertyNamingStrategy() {
+@Override
+public String nameForField(MapperConfig<?> config, AnnotatedField field, String defaultName) {
+   if (field.getFullName().equals("com.studytrails.json.jackson.Artist#name"))
+        return "Artist-Name";
+        return super.nameForField(config, field, defaultName);
+}
+ 
+@Override
+public String nameForGetterMethod(MapperConfig<?> config, AnnotatedMethod method, String defaultName) {
+  if (method.getAnnotated().getDeclaringClass().equals(Album.class) && defaultName.equals("title"))
+        return "Album-Title";
+        return super.nameForGetterMethod(config, method, defaultName);
+  }
+});
+```
+
+json结构如下：
+
+```
+{
+  "Album-Title" : "Kind Of Blue",
+  "links" : [ "link1", "link2" ],
+  "songs" : [ "So What", "Flamenco Sketches", "Freddie Freeloader" ],
+  "artist" : {
+    "Artist-Name" : "Miles Davis",
+    "birthDate" : "26 May 1926"
+  },
+  "musicians" : {
+    "Julian Adderley" : "Alto Saxophone",
+    "Miles Davis" : "Trumpet, Band leader",
+    "Paul Chambers" : "double bass"
+  }
+}
+```
+
+现在来看一下Jackson如何处理null 域。我们为`Artist`类新增三个属性，并且不赋值初始化。新增的属性如下：
+
+```java
+public int age;
+public String homeTown;
+public List<String> awardsWon = new ArrayList<String>();
+```
+
+转换后的json结构如下：
+
+```
+{
+"age" : 0,
+ "homeTown" : null,
+ "awardsWon" : [ ]
+}
+```
+
+可以通过配置项来忽略空属性。
+
+```java
+mapper.setSerializationInclusion(Include.NON_EMPTY);
+```
+
+以下是本节内容的完整代码：
+
+```java
+ 
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+ 
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.cfg.MapperConfig;
+import com.fasterxml.jackson.databind.introspect.AnnotatedField;
+import com.fasterxml.jackson.databind.introspect.AnnotatedMethod;
+ 
+public class SerializationExample {
+ 
+    public static void main(String[] args) throws IOException, ParseException {
+        ObjectMapper mapper = new ObjectMapper();
+        Album album = new Album("Kind Of Blue");
+        album.setLinks(new String[] { "link1", "link2" });
+        List<String> songs = new ArrayList<String>();
+        songs.add("So What");
+        songs.add("Flamenco Sketches");
+        songs.add("Freddie Freeloader");
+        album.setSongs(songs);
+        Artist artist = new Artist();
+        artist.name = "Miles Davis";
+        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+        artist.birthDate = format.parse("26-05-1926");
+        album.setArtist(artist);
+        album.addMusician("Miles Davis", "Trumpet, Band leader");
+        album.addMusician("Julian Adderley", "Alto Saxophone");
+        album.addMusician("Paul Chambers", "double bass");
+        mapper.configure(SerializationFeature.INDENT_OUTPUT, true);
+        mapper.configure(SerializationFeature.ORDER_MAP_ENTRIES_BY_KEYS, true);
+        SimpleDateFormat outputFormat = new SimpleDateFormat("dd MMM yyyy");
+        mapper.setDateFormat(outputFormat);
+        mapper.setPropertyNamingStrategy(new PropertyNamingStrategy() {
+            @Override
+            public String nameForField(MapperConfig<?> config, AnnotatedField field, String defaultName) {
+                if (field.getFullName().equals("com.studytrails.json.jackson.Artist#name"))
+                    return "Artist-Name";
+                return super.nameForField(config, field, defaultName);
+            }
+ 
+            @Override
+            public String nameForGetterMethod(MapperConfig<?> config, AnnotatedMethod method, String defaultName) {
+                if (method.getAnnotated().getDeclaringClass().equals(Album.class) && defaultName.equals("title"))
+                    return "Album-Title";
+                return super.nameForGetterMethod(config, method, defaultName);
+            }
+        });
+        mapper.setSerializationInclusion(Include.NON_EMPTY);
+        mapper.writeValue(System.out, album);
+    }
+}
+ 
+class Album {
+    private String title;
+    private String[] links;
+    private List<String> songs = new ArrayList<String>();
+    private Artist artist;
+    private Map<String , String> musicians = new HashMap<String , String>();
+ 
+    public Album(String title) {
+        this.title = title;
+    }
+ 
+    public String getTitle() {
+        return title;
+    }
+ 
+    public void setLinks(String[] links) {
+        this.links = links;
+    }
+ 
+    public String[] getLinks() {
+        return links;
+    }
+ 
+    public void setSongs(List<String> songs) {
+        this.songs = songs;
+    }
+ 
+    public List<String> getSongs() {
+        return songs;
+    }
+ 
+    public void setArtist(Artist artist) {
+        this.artist = artist;
+    }
+ 
+    public Artist getArtist() {
+        return artist;
+    }
+ 
+    public Map<String , String> getMusicians() {
+        return Collections.unmodifiableMap(musicians);
+    }
+ 
+    public void addMusician(String key, String value) {
+        musicians.put(key, value);
+    }
+}
+ 
+class Artist {
+    public String name;
+    public Date birthDate;
+    public int age;
+    public String homeTown;
+    public List<String> awardsWon = new ArrayList<String>();
+}
+
+```
+
+本小节我们看到了如何将Java对象序列化成json的用法，下一小节，我们将讲解如何用Jackson的tree方法构建json.
