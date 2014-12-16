@@ -467,3 +467,120 @@ album.put("musicians", musicians);
 ```
 
 以类似的方式你还可以添加其他元素，如果你有多个唱片集，你可以考虑通过循环生成一个`album`数组.Tree Model方式生成JSON普遍要比从Java 对象序列化成JSON快。
+
+## Streaming Parser and Generator
+
+Jackson提供了一个低层次的API来解析JSON字符串。这个API为每个JSON对象提供一个token。例如，JSON的开始标志`{`是解析器提供的第一个对象。键值对是另一个单一对象。客户端代码能够利用tokens并得到json属性，或者如果需要的话，可以通过流构建出一个Java对象。低层次的API功能很强大，但是需要写更多的代码。下面我们提供了两个例子。第一个example演示json解析，第二个example演示json生成。
+
+Json Parsing Example：
+
+```java
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+ 
+import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonToken;
+ 
+/**
+ * The aim of this class is to get the list of albums from free music archive
+ * (limit to 5)
+ *
+ */
+public class StreamParser1 {
+    public static void main(String[] args) throws MalformedURLException, IOException {
+        // Get a list of albums from free music archive. limit the results to 5
+        String url = "http://freemusicarchive.org/api/get/albums.json?api_key=60BLHNQCAOUFPIBZ&limit=5";
+        // get an instance of the json parser from the json factory
+        JsonFactory factory = new JsonFactory();
+        JsonParser parser = factory.createParser(new URL(url));
+ 
+        // continue parsing the token till the end of input is reached
+        while (!parser.isClosed()) {
+            // get the token
+            JsonToken token = parser.nextToken();
+            // if its the last token then we are done
+            if (token == null)
+                break;
+            // we want to look for a field that says dataset
+ 
+            if (JsonToken.FIELD_NAME.equals(token) && "dataset".equals(parser.getCurrentName())) {
+                // we are entering the datasets now. The first token should be
+                // start of array
+                token = parser.nextToken();
+                if (!JsonToken.START_ARRAY.equals(token)) {
+                    // bail out
+                    break;
+                }
+                // each element of the array is an album so the next token
+                // should be {
+                token = parser.nextToken();
+                if (!JsonToken.START_OBJECT.equals(token)) {
+                    break;
+                }
+                // we are now looking for a field that says "album_title". We
+                // continue looking till we find all such fields. This is
+                // probably not a best way to parse this json, but this will
+                // suffice for this example.
+                while (true) {
+                    token = parser.nextToken();
+                    if (token == null)
+                        break;
+                    if (JsonToken.FIELD_NAME.equals(token) && "album_title".equals(parser.getCurrentName())) {
+                        token = parser.nextToken();
+                        System.out.println(parser.getText());
+                    }
+ 
+                }
+ 
+            }
+ 
+        }
+ 
+    }
+}
+```
+
+Json Generation Example:
+
+```java
+ 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+ 
+import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.core.JsonGenerator;
+ 
+/**
+ *
+ * In This example we look at generating a json using the jsongenerator. we will
+ * be creating a json similar to
+ * http://freemusicarchive.org/api/get/albums.json?
+ * api_key=60BLHNQCAOUFPIBZ&limit=1, but use only a couple of fields
+ *
+ */
+public class StreamGenerator1 {
+    public static void main(String[] args) throws IOException {
+        JsonFactory factory = new JsonFactory();
+        JsonGenerator generator = factory.createGenerator(new FileWriter(new File("albums.json")));
+ 
+        // start writing with {
+        generator.writeStartObject();
+        generator.writeFieldName("title");
+        generator.writeString("Free Music Archive - Albums");
+        generator.writeFieldName("dataset");
+        // start an array
+        generator.writeStartArray();
+        generator.writeStartObject();
+        generator.writeStringField("album_title", "A.B.A.Y.A.M");
+        generator.writeEndObject();
+        generator.writeEndArray();
+        generator.writeEndObject();
+ 
+        generator.close();
+    }
+}
+```
+
