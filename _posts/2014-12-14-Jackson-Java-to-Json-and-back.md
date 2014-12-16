@@ -369,3 +369,101 @@ class Artist {
 ```
 
 本小节我们看到了如何将Java对象序列化成json的用法，下一小节，我们将讲解如何用Jackson的tree方法构建json.
+
+## 用Tree Model构建JSON
+
+用简单的Tree Model构建JSON有时是很有用的，例如你不想为你的JSON结构创建一个相应的Java Bean类。我们将再次使用上一节的example，有一个album类，他有一个Array的歌曲，一个艺术家和一个Array的作曲家。在建a tree之前，你先得做下面这些准备：
+
+- 生成`JsonNodeFactory`对象来创建节点。
+- 用`JsonFactory`生成`JsonGenerator`对象，并指定输出方式，本例中我们的输出方式为输出到控制台。
+- 生成一个`ObjectMapper`对象，它将用`jsonGenerator`和root node创建JSON。
+
+在一切准备好后，我们为`album`创建单独的root node，注意，默认情况下`ObjectMapper`没有为root node命名。
+
+```java
+
+import java.io.IOException;
+ 
+import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.JsonNodeFactory;
+ 
+public class SerializationExampleTreeModel {
+    public static void main(String[] args) throws IOException {
+        // Create the node factory that gives us nodes.
+        JsonNodeFactory factory = new JsonNodeFactory(false);
+ 
+        // create a json factory to write the treenode as json. for the example
+        // we just write to console
+        JsonFactory jsonFactory = new JsonFactory();
+        JsonGenerator generator = jsonFactory.createGenerator(System.out);
+        ObjectMapper mapper = new ObjectMapper();
+ 
+        // the root node - album
+        JsonNode album = factory.objectNode();
+        mapper.writeTree(generator, album);
+ 
+    }
+ 
+}
+```
+结果将是：
+
+```
+{}
+```
+
+你没有看错，我们输入了这么多的代码，得到的回报仅仅是两个大括号。现在我们来开始真正构建JSON，先给`album`的属性赋值，例如`Album-Title`。
+
+```java
+album.put("Album-Title", "Kind Of Blue");
+```
+
+现在JSON中有内容了：
+
+```
+{"Album-Title":"Kind Of Blue"}
+```
+
+现在开始给唱片集增加链接Array：
+
+```java
+ArrayNode links = factory.arrayNode();
+links.add("link1").add("link2");
+album.put("links", links);
+
+//JSON结果如下
+{"Album-Title":"Kind Of Blue","links":["link1","link2"]}
+```
+
+接下来增加艺术家对象，记住，艺术家本身也是一个jsonObject:
+
+```java
+ObjectNode artist = factory.objectNode();
+artist.put("Artist-Name", "Miles Davis");
+artist.put("birthDate", "26 May 1926");
+album.put("artist", artist);
+
+//JSON结果如下
+
+{"Album-Title":"Kind Of Blue","links":["link1","link2"],
+"artist":{"Artist-Name":"Miles Davis","birthDate":"26 May 1926"}}
+
+```
+目前为止我们还没有添加音乐家对象，音乐家不是Array形式而是一个`musicians`类型对象：
+
+```java
+ObjectNode musicians = factory.objectNode();
+musicians.put("Julian Adderley", "Alto Saxophone");
+musicians.put("Miles Davis", "Trumpet, Band leader");
+album.put("musicians", musicians);
+
+//JSON结果如下
+{"Album-Title":"Kind Of Blue","links":["link1","link2"],
+"artist":{"Artist-Name":"Miles Davis","birthDate":"26 May 1926"},
+"musicians":{"Julian Adderley":"Alto Saxophone","Miles Davis":"Trumpet, Band leader"}}
+```
+
+以类似的方式你还可以添加其他元素，如果你有多个唱片集，你可以考虑通过循环生成一个`album`数组.Tree Model方式生成JSON普遍要比从Java 对象序列化成JSON快。
