@@ -1,4 +1,10 @@
-
+---
+layout: post
+title: Jackson - Data Binding
+category: 技术
+tags: Jackson Java Json Data-Binding
+description: Jackson - Data Binding序列化和反序列化Java对象方法
+---
 
 
 

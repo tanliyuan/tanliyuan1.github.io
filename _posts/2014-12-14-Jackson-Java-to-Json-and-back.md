@@ -2,8 +2,8 @@
 layout: post
 title: Jackson - Java序列化
 category: 技术
-tags: Jackson Java-Json
-description: SwitchySharp和自由门结合使用，轻轻松松实现翻墙，告别繁琐配置。
+tags: Jackson Java Json
+description: Jackson构造json的三种方法介绍，带详细示例。
 ---
 
 本文讲述如何创建一个JSON结构字符串。我们有三种方式创建JSON：

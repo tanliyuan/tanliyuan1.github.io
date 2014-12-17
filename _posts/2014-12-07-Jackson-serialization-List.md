@@ -6,7 +6,7 @@ tags: Jackson Java-Json
 description: Jackson 序列化Java List 对象是保留List中对象的类型信息，以便正确的反序列化。
 ---
 
-　　本节讲解如何将Java List序列化成JSON，序列化和反序列化`lists`时，默认是不会保存类型信息的。下面演示连个例子，第一个example中，我们序列化一个包含Java List属性的对象；第二个例子中我们直接序列化Java List，这两个example中我们用Jackson `Annotation`在序列化时保留了类型信息。
+　　本节讲解如何将Java List序列化成JSON，序列化和反序列化`lists`时，默认是不会保存类型信息的。下面演示两个例子，第一个example中，我们序列化一个包含Java List属性的对象；第二个例子中我们直接序列化Java List，这两个example中我们用Jackson `Annotation`在序列化时保留了类型信息。
 
 ## Example 1: 序列化包含List的对象
 
