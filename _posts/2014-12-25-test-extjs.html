@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <!--
+    <link rel="stylesheet" href="../resources/css/ext-all.css" />
+    <script src="../js/ext-all-dev.js"></script>
+    <script src="../js/ext-lang-zh_CN.js"></script>
+   -->
+    <link href="http://cdn.bootcss.com/extjs/4.2.1/resources/css/ext-all.css" rel="stylesheet">
+    <script src="http://cdn.bootcss.com/extjs/4.2.1/ext-all.min.js"></script>
+    <script>
+        Ext.onReady(function()
+        {
+            Ext.create('Ext.panel.Panel', {
+                title: '<h1>疯狂在线办公系统</h1>',
+                width: 260,
+                height: 300,
+                layout: 'accordion',
+                items: [
+                    {
+                        title: '员工系统',
+                        html: '<h3>员工系统功能列表</h3>'
+                    },
+                    {
+                        title: '考勤系统',
+                        html: '<h3>考勤系统功能列表</h3>'
+                    },
+                    {
+                        title: '邮件系统',
+                        html: '<h3>邮件系统功能列表</h3>'
+                    },
+                    {
+                        title: '公文系统',
+                        html: '<h3>公文系统功能列表</h3>'
+                    }
+                ],
+                renderTo: Ext.getBody()
+            });
+        });
+    </script>
+</head>
+<body>
+
+</body>
+</html>
